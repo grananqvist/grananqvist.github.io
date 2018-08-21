@@ -19,9 +19,12 @@ class Navbar extends Component {
 
     render() {
 
-        const { menuButtonStyle, wrapperStyle, menuIconStyle, navbarStyle } = style;
+        const { 
+            menuButtonStyle, wrapperStyle, menuIconStyle, navbarStyle, 
+            navTextStyle, navUlStyle
+        } = style;
         return (
-            <div>
+            <div style={wrapperStyle} >
                     <i 
                     onClick={this.menuToggle.bind(this)}
                     id="menu-button-icon"
@@ -29,9 +32,9 @@ class Navbar extends Component {
                         class="medium material-icons">reorder</i>
                 {this.state.open && <div 
                     style={navbarStyle}>
-                    <ul>
-                        <li><Link to="/"><h4>Home</h4></Link></li>
-                        <li><Link to="/celebgan"><h4>Celeb generator</h4></Link></li>
+                    <ul style={navUlStyle}>
+                        <li><Link to="/"><h4 style={navTextStyle}>Home</h4></Link></li>
+                        <li><Link to="/celebgan"><h4 style={navTextStyle}>Celeb generator</h4></Link></li>
                     </ul>
                 </div>}
             </div>
@@ -60,6 +63,14 @@ const style = {
         height: '45px',
         width: '50px',
         marginTop: '10px'
+    },
+    navTextStyle: {
+        marginTop: '10px',
+        marginBottom: '10px',
+        color: 'black'
+    },
+    navUlStyle: {
+        margin: '0px'
     }
 };
 

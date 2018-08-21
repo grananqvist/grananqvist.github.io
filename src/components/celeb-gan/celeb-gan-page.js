@@ -10,7 +10,11 @@ class CelebGanPage extends Component {
 
     render() {
         return (
-            <h1 className="white">CelebGanPage</h1>        
+            <div className="container">
+                <div className="row">
+            <h1 style={{textAlign: 'center', margin: '0px'}} className="white">CelebGanPage</h1>        
+        </div>
+        </div>
         );
     }
 }

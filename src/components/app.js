@@ -10,13 +10,11 @@ export default class App extends Component {
     render() {
         return (
             <div style={{height: '100vh', backgroundColor: 'black'}}>
-                <div className="container">
                     <Navbar />
                     <Switch>
                         <Route exact path='/' component={HomePage}/>
                         <Route path='/celebgan' component={CelebGanPage}/>
                     </Switch>
-                </div>
             </div>
         );
     }
