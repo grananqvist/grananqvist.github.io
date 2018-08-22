@@ -45,7 +45,7 @@ class Navbar extends Component {
 const style = {
     wrapperStyle: {
         position: 'absolute',
-
+        zIndex: '99'
     },
     navbarStyle: {
         backgroundColor: 'white',

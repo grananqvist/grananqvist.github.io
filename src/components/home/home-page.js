@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactFullpage from '@fullpage/react-fullpage';
 
 import { twitter, github, linkedin } from './social-icons.js';
 
@@ -9,35 +10,93 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
 
+        this.state = { lastSlide: false };
+
+        this.fullpageProps = {
+            sectionsColor: ['#000', 'rgba(39, 0, 255, 0.5)'],
+            onLeave: (origin, destination, direction) => {
+
+                // remove arrow
+                if(destination.isLast == true){
+                    $('.textDown').remove();
+                }
+            }
+        };
+
+    }
+
+    componentDidMount() {
+        
+        // hide hi
+        $('#greeting').transition({ y: '100%'},0);
+
+        setTimeout(() => {
+            $('#greeting').transition({ y: '0%'},1000, 'ease');
+        
+        }, 1000);
     }
 
     render() {
-        const { iconWrapperStyle, greetingStyle, wrapperStyle, centerStyle } = styles;
+        const { 
+            iconWrapperStyle, greetingStyle, tradingWandStyle, wrapperStyle, centerStyle,
+            tradingWandImageStyle, iconRowStyle
+        } = styles;
+
         return (
-            <div className="container" style={wrapperStyle}>
-                <div style={centerStyle} >
-                    <div className="row" style={{margin: '0px'}}>
-                        <h1 className="thin" style={greetingStyle} >Hi.</h1> 
-                    </div>
-                    <div className="row" style={{width: '250px'}}>
-                        <div className="col s4" style={iconWrapperStyle}>
-                            <a target="_blank" href="https://twitter.com/Grananqvist" >
-                                {twitter}
-                            </a>
-                        </div>
-                        <div className="col s4" style={iconWrapperStyle}>
-                            <a target="_blank" href="https://se.linkedin.com/in/filip-granqvist-112017149" >
-                                {linkedin}
-                            </a>
-                        </div>
-                        <div className="col s4" style={iconWrapperStyle}>
-                            <a target="_blank" href="https://github.com/grananqvist" >
-                                {github}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div>
+                <ReactFullpage
+                    {...this.fullpageProps}
+                    render={({ state, fullpageApi }) => {
+                        return (
+                            <div>
+                                <div className="section">
+
+                                    <div style={centerStyle} >
+                                        <div className="row" style={{margin: '0px'}}>
+                                            <h1 id="greeting" className="thin" style={greetingStyle} >Hi.</h1> 
+                                        </div>
+                                        <div className="row" style={iconRowStyle}>
+                                            <div className="col s4" style={iconWrapperStyle}>
+                                                <a target="_blank" href="https://twitter.com/Grananqvist" >
+                                                    {twitter}
+                                                </a>
+                                            </div>
+                                            <div className="col s4" style={iconWrapperStyle}>
+                                                <a target="_blank" href="https://se.linkedin.com/in/filip-granqvist-112017149" >
+                                                    {linkedin}
+                                                </a>
+                                            </div>
+                                            <div className="col s4" style={iconWrapperStyle}>
+                                                <a target="_blank" href="https://github.com/grananqvist" >
+                                                    {github}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div className="section fp-auto-height">
+                                    <div style={{height: '300px'}}>
+
+                                        <div style={centerStyle} >
+                                            <a target="_blank" href="https://tradingwand.com">
+                                                <img src="assets/img/tw-logo.png" style={tradingWandImageStyle}/>
+
+                                                <h1 style={tradingWandStyle}>TradingWand</h1>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }}
+                />
+
+            {!this.lastSlide && <div className="textDown" onClick={() => fullpageApi.moveSectionDown()}><h6>Co-founder of:</h6></div>}
+        </div>
+
         );
     }
 }
@@ -56,12 +115,33 @@ const styles = {
     iconWrapperStyle: {
         //width: '70px'
     },
+    iconRowStyle: {
+        zIndex: '200',
+        backgroundColor: 'black',
+        position: 'relative',
+        width: '250px'
+    },
     greetingStyle: {
         textAlign: 'center',
         color: 'white',
         padding: '0px',
         margin: '0px',
         marginBottom: '10px'
+    },
+    tradingWandStyle: {
+        margin: '0',
+        padding: '0',
+        color: '#f9f1e9',
+        textAlign: 'center',
+        fontFamily: 'Fugaz One, cursive',
+        textShadow: '1px 1px #000061',
+        fontSize: '45px'
+
+    },
+    tradingWandImageStyle: {
+        width: '200px',
+        margin: '0 auto 10px auto',
+        display: 'block'
     }
 };
 

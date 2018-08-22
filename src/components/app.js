@@ -5,6 +5,7 @@ import HomePage from './home/home-page.js';
 import CelebGanPage from './celeb-gan/celeb-gan-page.js';
 
 import 'jquery';
+import 'jquery.transit';
 
 export default class App extends Component {
     render() {
