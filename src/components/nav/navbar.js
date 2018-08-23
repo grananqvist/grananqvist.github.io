@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -10,33 +10,62 @@ class Navbar extends Component {
         this.state = { open: false };
     }
 
+    componentDidMount() {
+        $('#nav-list li').transition({ x: '-100%', opacity: '0' }, 0);
+        
+    }
+
     menuToggle() {
+
+        const pos = this.state.open ? '-100%' : '0%';
+        const op = this.state.open ? '0' : '1';
+        const rot = this.state.open ? '0deg' : '90deg';
+
+        $('#nav-list li').each(function(i) {
+            $(this).transition({ x: pos, opacity: op, delay: i*250}, 500, 'ease');
+        });
+
+        $('#menu-button-icon').transition({ rotate: rot }, 250, 'ease');
+
         this.setState({
             open: !this.state.open
         });
-        $('#menu-button-icon').toggleClass('rotated', 500);
+
+
     }
 
     render() {
 
-        const { 
+        let { 
             menuButtonStyle, wrapperStyle, menuIconStyle, navbarStyle, 
-            navTextStyle, navUlStyle
+            navTextStyle, navUlStyle, navLiStyle
         } = style;
+
+        const wrapperColor = this.props.location.pathname == '/' ? 'white' : 'black';
+        const textColor = this.props.location.pathname == '/' ? 'black' : 'white';
+
         return (
             <div style={wrapperStyle} >
                     <i 
                     onClick={this.menuToggle.bind(this)}
                     id="menu-button-icon"
-                        style={menuIconStyle}
-                        class="medium material-icons">reorder</i>
-                {this.state.open && <div 
+                        style={{...menuIconStyle, color: wrapperColor}}
+                        class="medium material-icons amin">menu</i>
+                <div 
                     style={navbarStyle}>
-                    <ul style={navUlStyle}>
-                        <li><Link to="/"><h4 style={navTextStyle}>Home</h4></Link></li>
-                        <li><Link to="/celebgan"><h4 style={navTextStyle}>Celeb generator</h4></Link></li>
+                    <ul id="nav-list" style={navUlStyle}>
+                        <li style={{...navLiStyle, backgroundColor: wrapperColor}}>
+                            <Link to="/">
+                                <h4 style={{...navTextStyle, color: textColor}}>Home</h4>
+                            </Link>
+                        </li>
+                        <li style={{...navLiStyle, backgroundColor: wrapperColor}}>
+                            <Link to="/celebgan">
+                                <h4 style={{...navTextStyle, color: textColor}}>Celeb generator</h4>
+                            </Link>
+                        </li>
                     </ul>
-                </div>}
+                </div>
             </div>
         );
     }
@@ -48,9 +77,7 @@ const style = {
         zIndex: '99'
     },
     navbarStyle: {
-        backgroundColor: 'white',
-        padding: '20px',
-        width: '300px'
+        width: '350px'
     },
     menuIconStyle: {
         fontSize: '50px',
@@ -71,7 +98,12 @@ const style = {
     },
     navUlStyle: {
         margin: '0px'
+    },
+    navLiStyle: {
+        backgroundColor: 'white',
+        marginBottom: '5px',
+        padding: '5px 10px'
     }
 };
 
-export default Navbar;
+export default withRouter(Navbar);

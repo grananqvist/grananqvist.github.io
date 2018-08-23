@@ -13,6 +13,7 @@ class HomePage extends Component {
         this.state = { lastSlide: false };
 
         this.fullpageProps = {
+            licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
             sectionsColor: ['#000', 'rgba(39, 0, 255, 0.5)'],
             onLeave: (origin, destination, direction) => {
 
@@ -26,14 +27,17 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
+
+        $('.social-wrapper').each(function(i) {
+            $(this)
+                .transition({ x: '-100%', opacity: '0'},0)
+                .transition({ x: '0%', opacity: '1', delay: i*500},500, 'ease');
+        
+        });
         
         // hide hi
-        $('#greeting').transition({ y: '100%'},0);
-
-        setTimeout(() => {
-            $('#greeting').transition({ y: '0%'},1000, 'ease');
-        
-        }, 1000);
+        $('#greeting').transition({ y: '100%'},0)
+            .transition({ y: '0%', delay: 2500 },1000, 'ease');
     }
 
     render() {
@@ -56,17 +60,17 @@ class HomePage extends Component {
                                             <h1 id="greeting" className="thin" style={greetingStyle} >Hi.</h1> 
                                         </div>
                                         <div className="row" style={iconRowStyle}>
-                                            <div className="col s4" style={iconWrapperStyle}>
+                                            <div className="col s4 social-wrapper" style={iconWrapperStyle}>
                                                 <a target="_blank" href="https://twitter.com/Grananqvist" >
                                                     {twitter}
                                                 </a>
                                             </div>
-                                            <div className="col s4" style={iconWrapperStyle}>
+                                            <div className="col s4 social-wrapper" style={iconWrapperStyle}>
                                                 <a target="_blank" href="https://se.linkedin.com/in/filip-granqvist-112017149" >
                                                     {linkedin}
                                                 </a>
                                             </div>
-                                            <div className="col s4" style={iconWrapperStyle}>
+                                            <div className="col s4 social-wrapper" style={iconWrapperStyle}>
                                                 <a target="_blank" href="https://github.com/grananqvist" >
                                                     {github}
                                                 </a>
