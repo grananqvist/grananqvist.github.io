@@ -12,7 +12,7 @@ class CelebGanPage extends Component {
         return (
             <div className="container">
                 <div className="row">
-            <h1 style={{textAlign: 'center', margin: '0px'}} className="white">CelebGanPage</h1>        
+            <h1 style={{textAlign: 'center', margin: '0px'}} className="white">This page is totally secret</h1>        
         </div>
         </div>
         );

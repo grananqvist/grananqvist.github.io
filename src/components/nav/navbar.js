@@ -60,8 +60,8 @@ class Navbar extends Component {
                             </Link>
                         </li>
                         <li style={{...navLiStyle, backgroundColor: wrapperColor}}>
-                            <Link to="/celebgan">
-                                <h4 style={{...navTextStyle, color: textColor}}>Celeb generator</h4>
+                            <Link to="/secret">
+                                <h4 style={{...navTextStyle, color: textColor}}>Secret page</h4>
                             </Link>
                         </li>
                     </ul>
